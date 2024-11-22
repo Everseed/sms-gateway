@@ -3,11 +3,12 @@ package org.balafondreams.smsmanager.domain.mapper;
 import org.balafondreams.smsmanager.domain.entities.user.ERole;
 import org.balafondreams.smsmanager.domain.entities.user.Role;
 import org.balafondreams.smsmanager.domain.models.user.RoleDTO;
+import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import org.mapstruct.ValueMapping;
 
 import java.util.Set;
-
+@Mapper(componentModel = "spring")
 public interface RoleMapper {
     RoleDTO toDto(Role role);
 

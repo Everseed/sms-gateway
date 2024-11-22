@@ -4,11 +4,13 @@ import org.balafondreams.smsmanager.domain.entities.user.ERole;
 import org.balafondreams.smsmanager.domain.entities.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
     Optional<Role> findByName(ERole name);
@@ -18,10 +20,10 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @Query("SELECT r FROM Role r WHERE r.name IN :names")
     Set<Role> findByNames(Set<ERole> names);
 
+    // "JOIN r.users u " +
     @Query("SELECT DISTINCT r FROM Role r " +
-            "JOIN r.users u " +
             "GROUP BY r " +
-            "ORDER BY COUNT(u) DESC")
+            "ORDER BY COUNT(r) DESC")
     List<Role> findMostUsedRoles();
 
     @Query("SELECT r FROM Role r WHERE r NOT IN " +
